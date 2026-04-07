@@ -1,0 +1,420 @@
+% Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  letterpaper,
+  DIV=11,
+  numbers=noendperiod]{scrartcl}
+\usepackage{xcolor}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+% Make \paragraph and \subparagraph free-standing
+\makeatletter
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\makeatother
+
+
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+
+
+
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+
+
+\KOMAoption{captions}{tableheading}
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Table of contents}
+\else
+  \newcommand\contentsname{Table of contents}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{List of Figures}
+\else
+  \newcommand\listfigurename{List of Figures}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{List of Tables}
+\else
+  \newcommand\listtablename{List of Tables}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figure}
+\else
+  \newcommand\figurename{Figure}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Table}
+\else
+  \newcommand\tablename{Table}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Los fundamentos lógica y demostraciones},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{Los fundamentos lógica y demostraciones}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+
+
+La lógica es la base de todo razonamiento matemático y de todo
+razonamiento automatizado. Para comprender las matemáticas debemos
+entender en que consiste un razonamiento matemático correcto, es decir,
+una desmotración. Una vez que demostremos que una afirmación matemática
+es cierta, la llamamos \textbf{teorema}.
+
+Las demostraciones se utilizan para verificar que los programas
+informáticos generen el resultado correcto para todos los valores de
+entrada posible.
+
+\section{Lógica proposicional}\label{luxf3gica-proposicional}
+
+Las reglas de la lógica dotan de un significado preciso a los enunciados
+matemáticos. Estas reglas se utilizan para distinguir entre argumentos
+matemáticos válido o inválidos.
+
+\section{Proposiciones}\label{proposiciones}
+
+Una proposición es una oración declarativa (es decir, una oración que
+afirma un hecho) que es verdadera o falsa, pero no ambas cosa a la vez.
+
+Todas las oraciones declarativas son proposiciones.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Washington, D.C, es la capital de estados unidos.
+\item
+  Toronto es la capital de Canada.
+\item
+  1 + 1 = 2.
+\item
+  2 + 2 = 3.
+\end{enumerate}
+
+Considera las siguientes frases.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  ¿Qué hora es?
+\item
+  Lee esto con atención.
+\item
+  x + 1 = 2.
+\item
+  x + y = z.
+\end{enumerate}
+
+La oraciones 1 y 2 no son proposiciones porque no son oraciones
+declarativas. Las oraciones 3 y 4 no son proposiciones porque no son ni
+verdaderas ni falsas.
+
+Utilizamos letras para designar \textbf{variables proposicionales}, es
+decir variables que representan proposiciones. Las letras convencionales
+utilizadas para las variables proposicionales son p, q, r, s, el valor
+de verdad de un proposición es denotador por \textbf{T}, si la
+proposición es verdadera, y el valor de verdad de una proposición es
+falso, denotado por una \textbf{F}, si una proposición es falsa.
+
+El área de la lógica que se ocupa de las proposiciones se denomina
+lógica proposicional. Muchas afirmaciones matemáticas se construyen
+combinando una o más proposiciones.
+
+\subsection{Definición 1.}\label{definiciuxf3n-1.}
+
+Sea \(p\) una proposición. La negación de \(p\), denotadada por
+\(\neg p\) es el enunciado.
+
+\textbf{no es cierto que p.}
+
+La proposición \(\neg p\) se lee no p.~El valor de verdad de la negación
+p, \(\neg p\), es el opuesto del valor de verdad de p.
+
+\textbf{Conectivos:} Son aquellos operadores lógicos que se utilizan
+para formar nuevas proposiciones a partir de dos o más proposiciones
+existentes.
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+p & \(\neg p\) \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+V & F \\
+F & V \\
+\end{longtable}
+
+\subsection{Definición 2.}\label{definiciuxf3n-2.}
+
+Sean \(p\) y \(q\) proposiciones. La conjunción de \(p\) y \(q\),
+denotada por \(p \land q\), que es la proposición \(p\) y \(q\). La
+conjunción \(p \land q\) es verdadera cuando tanto p como q son
+verdaderas, y falsa en cualquier otro caso.
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule\noalign{}
+p & q & \(p \land q\) \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+V & V & V \\
+V & F & F \\
+F & V & F \\
+F & F & F \\
+\end{longtable}
+
+\subsection{Definición 3.}\label{definiciuxf3n-3.}
+
+Sean \(p\) y \(q\) proposiciones. La disyunción de \(p\) y \(q\),
+denotada por \(p \lor q\), es la proposicón p o q. La disyunción
+\(p \lor q\) es falsa cuando tanto p como q son falsas, y es verdadera
+en cualquier otro caso.
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule\noalign{}
+p & q & \(p \lor q\) \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+V & V & V \\
+V & F & V \\
+F & V & V \\
+F & F & F \\
+\end{longtable}
+
+\subsection{Definición 4.}\label{definiciuxf3n-4.}
+
+Sean \(p\) y \(q\) proposiciones. El o exclusivo de \(p\) y \(q\),
+denotado por \(p \oplus q\), es la proposición que es verdadera cuando
+cuando exactamente una de p y q es verdadera y falsa en cualquier otro
+caso.
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule\noalign{}
+p & q & \(p \oplus q\) \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+V & V & F \\
+V & F & V \\
+F & V & V \\
+F & F & F \\
+\end{longtable}
+
+\section{Enuncidados condicionales}\label{enuncidados-condicionales}
+
+\subsection{Definición 5.}\label{definiciuxf3n-5.}
+
+Sean \(p\) y \(q\) proposiciones. La proposición condicional \(p \to q\)
+es la proposición si p, entonces q. La proposición condicional
+\(p \to q\) es falsa cuando p es verdadera y q es falsa, y verdadera en
+cualquier otro caso. En la proposición condicional \(p \to q\), p se
+denomina hipótesis (o antecedente o prmisa) y q se denomia conclusión (o
+consecuencia).
+
+La proposición \(p \to q\) se denomina condicional porque que
+\(p \to q\) afirma que q verdadera con la condición de que p es cierta.
+Una proposicón condicional se denomina implicación.
+
+Una forma util de entender el valor de verdad de la proposición
+condicional es pensar en una obligación o un contrato. Por ejemplo, la
+promesa que hacen muchos políticos cuando se presentan las elecciones es
+``Si salgo elegido, bajaré los impuesto.''
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule\noalign{}
+p & q & \(p \to q\) \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+V & V & V \\
+V & F & F \\
+F & V & V \\
+F & F & V \\
+\end{longtable}
+
+\subsection{Converso, Contrapositivo e
+inverso.}\label{converso-contrapositivo-e-inverso.}
+
+A partir de la proposición condicional \(p \to q\) podemos formar nuevas
+proposiciones condicionales. En concreto, hay tres proposiciones
+condicionales relacionadas que aperecen con tanta frecuencia que tienen
+nombres propios. La proposición \(q \to p\) se denomina
+\textbf{reciproca} de \(p \to q\). La \textbf{contrapositiva} de
+\(p \to q\) es la proposicón \(\neg q \to \neg p\). La proposicón
+\(\neg p \to \neg q\) se le llama inversa de \(p \to q\), solo la
+contrapositiva tiene el mismo valor de verdad que \(p \to q\).
+
+Cuando dos proposiciones compuestas tienen siempre el mismo valor de
+verdad, las llamamos \textbf{equivalentes}.
+
+\section{Bicondicionales}\label{bicondicionales}
+
+\subsection{Definición 6.}\label{definiciuxf3n-6.}
+
+Sean \(p\) y \(q\) proposiciones. La afirmación bicondicional
+\(p \iff q\) es la proposición \(p\) si y solo si \(q\). La proposición
+bicondicional \(p \iff q\) es verdadera cuando \(p\) y \(q\) tienen los
+mismos valores de verdad, y es falsa en caso contrario. Las afirmaciones
+bicondicionales también se denominan biimplicaciones.
+
+Observese que la proposición \(p \iff q\) es verdadera cuando ambas
+proposiciones condicionales \(p \to q\) y \(q \to p\) son verdaderas, y
+es falsa en cualquier otro caso.
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule\noalign{}
+p & q & \(p \iff q\) \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+V & V & V \\
+V & F & F \\
+F & V & F \\
+F & F & V \\
+\end{longtable}
+
+\section{Tablas de verdad de proposiciones
+compuestas}\label{tablas-de-verdad-de-proposiciones-compuestas}
+
+Utilizando conectores (conjunciones, disyunciones, condicionales,
+bicondicionales, \ldots) podemos formarm proposiciones compuestas
+complejas que incluyan cualquier número de variables proposicionales.
+Podemos utilizar tablas de verdad para determinar los valores de verdad
+de estas proposiciones compuestas.
+
+\[
+\begin{array}{c|c|c|c|c|c}
+p & q & \neg q & p \lor \neg q & p \land q & (p \lor \neg q) \rightarrow (p \land q) \\
+\hline
+T & T & F & T & T & T \\
+T & F & T & T & F & F \\
+F & T & F & F & F & T \\
+F & F & T & T & F & F \\
+\end{array}
+\]
+
+
+
+
+\end{document}

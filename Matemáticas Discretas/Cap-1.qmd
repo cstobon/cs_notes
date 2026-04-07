@@ -1,0 +1,135 @@
+---
+title: Los fundamentos lógica y demostraciones
+format: pdf
+---
+
+La lógica es la base de todo razonamiento matemático y de todo razonamiento automatizado. Para comprender las matemáticas debemos entender en que consiste un razonamiento matemático correcto, es decir, una desmotración. Una vez que demostremos que una afirmación matemática es cierta, la llamamos **teorema**.
+
+Las demostraciones se utilizan para verificar que los programas informáticos generen el resultado correcto para todos los valores de entrada posible.
+
+# Lógica proposicional
+
+Las reglas de la lógica dotan de un significado preciso a los enunciados matemáticos. Estas reglas se utilizan para distinguir entre argumentos matemáticos válido o inválidos.
+
+# Proposiciones
+
+Una proposición es una oración declarativa (es decir, una oración que afirma un hecho) que es verdadera o falsa, pero no ambas cosa a la vez.
+
+Todas las oraciones declarativas son proposiciones.
+
+1. Washington, D.C, es la capital de estados unidos.
+2. Toronto es la capital de Canada.
+3. 1 + 1 = 2.
+4. 2 + 2 = 3.
+
+Considera las siguientes frases.
+
+1. ¿Qué hora es?
+2. Lee esto con atención.
+3. x + 1 = 2.
+4. x + y = z.
+
+La oraciones 1 y 2 no son proposiciones porque no son oraciones declarativas. Las oraciones 3 y 4 no son proposiciones porque no son ni verdaderas ni falsas.
+
+Utilizamos letras para designar **variables proposicionales**, es decir variables que representan proposiciones. Las letras convencionales utilizadas para las variables proposicionales son p, q, r, s, el valor de verdad de un proposición es denotador por **T**, si la proposición es verdadera, y el valor de verdad de una proposición es falso, denotado por una **F**, si una proposición es falsa.
+
+El área de la lógica que se ocupa de las proposiciones se denomina lógica proposicional. Muchas afirmaciones matemáticas se construyen combinando una o más proposiciones.
+
+
+## Definición 1. 
+Sea $p$ una proposición. La negación de $p$, denotadada por $\neg p$ es el enunciado.
+
+**no es cierto que p.**
+
+La proposición $\neg p$ se lee no p. El valor de verdad de la negación p, $\neg p$, es el opuesto del valor de verdad de p.
+
+**Conectivos:** Son aquellos operadores lógicos que se utilizan para formar nuevas proposiciones a partir de dos o más proposiciones existentes.
+
+| p | $\neg p$ |
+|---|---|
+| V | F | 
+| F | V |
+
+
+## Definición 2.
+
+Sean $p$ y $q$ proposiciones. La conjunción de $p$ y $q$, denotada por $p \land q$, que es la proposición $p$ y $q$. La conjunción $p \land q$ es verdadera cuando tanto p como q son verdaderas, y falsa en cualquier otro caso.
+
+| p | q | $p \land q$ |
+|---|---|-------------|
+| V | V | V           |
+| V | F | F           |
+| F | V | F           |
+| F | F | F           |
+
+## Definición 3.
+Sean $p$ y $q$ proposiciones. La disyunción de $p$ y $q$, denotada por $p \lor q$, es la proposicón p o q. La disyunción $p \lor q$ es falsa cuando tanto p como q son falsas, y es verdadera en cualquier otro caso. 
+
+| p | q | $p \lor q$ |
+|---|---|-------------|
+| V | V | V           |
+| V | F | V           |
+| F | V | V           |
+| F | F | F           |
+
+## Definición 4.
+Sean $p$ y $q$ proposiciones. El o exclusivo de $p$ y $q$, denotado por $p \oplus q$, es la proposición que es verdadera cuando cuando exactamente una de p y q es verdadera y falsa en cualquier otro caso. 
+
+| p | q | $p \oplus q$ |
+|---|---|-------------|
+| V | V | F           |
+| V | F | V           |
+| F | V | V           |
+| F | F | F           |
+
+
+# Enuncidados condicionales 
+
+## Definición 5.
+Sean $p$ y $q$ proposiciones. La proposición condicional $p \to q$ es la proposición si p, entonces q. La proposición condicional $p \to q$ es falsa cuando p es verdadera y q es falsa, y verdadera en cualquier otro caso. En la proposición condicional $p \to q$, p se denomina hipótesis (o antecedente o prmisa) y q se denomia conclusión (o consecuencia).
+
+La proposición $p \to q$ se denomina condicional porque que $p \to q$ afirma que q verdadera con la condición de que p es cierta. Una proposicón condicional se denomina implicación.
+
+Una forma util de entender el valor de verdad de la proposición condicional es pensar en una obligación o un contrato. Por ejemplo, la promesa que hacen muchos políticos cuando se presentan las elecciones es "Si salgo elegido, bajaré los impuesto."
+
+| p | q | $p \to q$ |
+|---|---|-------------|
+| V | V | V           |
+| V | F | F           |
+| F | V | V           |
+| F | F | V           |
+
+## Converso, Contrapositivo e inverso.
+A partir de la proposición condicional $p \to q$ podemos formar nuevas proposiciones condicionales. En concreto, hay tres proposiciones condicionales relacionadas que aperecen con tanta frecuencia que tienen nombres propios. La proposición $q \to p$ se denomina **reciproca** de $p \to q$. La **contrapositiva** de $p \to q$ es la proposicón $\neg q \to \neg p$. La proposicón $\neg p \to \neg q$ se le llama inversa de $p \to q$, solo la contrapositiva tiene el mismo valor de verdad que $p \to q$.
+
+Cuando dos proposiciones compuestas tienen siempre el mismo valor de verdad, las llamamos **equivalentes**.
+
+# Bicondicionales
+
+## Definición 6.
+Sean $p$ y $q$ proposiciones. La afirmación bicondicional $p \iff q$ es la proposición $p$ si y solo si $q$. La proposición bicondicional $p \iff q$ es verdadera cuando $p$ y $q$ tienen los mismos valores de verdad, y es falsa en caso contrario. Las afirmaciones bicondicionales también se denominan biimplicaciones.
+
+Observese que la proposición $p \iff q$ es verdadera cuando ambas proposiciones condicionales $p \to q$ y $q \to p$ son verdaderas, y es falsa en cualquier otro caso.
+
+| p | q | $p \iff q$ |
+|---|---|-------------|
+| V | V | V           |
+| V | F | F           |
+| F | V | F           |
+| F | F | V           |
+
+# Tablas de verdad de proposiciones compuestas
+
+Utilizando conectores (conjunciones, disyunciones, condicionales, bicondicionales, ...) podemos formarm proposiciones compuestas complejas que incluyan cualquier número de variables proposicionales.
+Podemos utilizar tablas de verdad para determinar los valores de verdad de estas proposiciones compuestas.
+
+$$
+\begin{array}{c|c|c|c|c|c}
+p & q & \neg q & p \lor \neg q & p \land q & (p \lor \neg q) \rightarrow (p \land q) \\
+\hline
+T & T & F & T & T & T \\
+T & F & T & T & F & F \\
+F & T & F & F & F & T \\
+F & F & T & T & F & F \\
+\end{array}
+$$

@@ -1,0 +1,204 @@
+---
+title: Docker
+format: pdf
+---
+# Glosario de términos
+
+* **Docker:**
+
+    Docker es una herramienta diseñada para facilitar la creación, implementación y ejecución de aplicaciones mediante el uso de contenedores.
+
+* **Container (Contenedor):**
+
+    Es una instancia de una imagen ejecutandose en un ambiente aislado.
+
+* **Image (Imagen):**
+
+    Es una archivo construido por capas, que contiene todas las dependencias para ejecutarse, tal como: configuraciones, scripts, archivos binarios, etc.
+
+* **Dockerizar una aplicación:**
+    
+    Proceso de tomar un código fuente y generar una imagen lista para montar y correrla en un contenedor.
+
+* **Dockerfile:**
+
+    Un archivo de texto con instrucciones necesarias para crear una imagen. Se puede ver como un blueprint o plano de construcción.
+
+* **.dockerignore:**
+
+    Similar a .gitignore, el .dockerignore especifica todo lo que hay que ignorar en un proceso de construcción (build)
+
+* **docker-compose.yml:**
+
+    Archivo para definir los servicios y con un solo comando en lugar de definir todo directamente en la consola.
+
+* **Volumenes:**
+
+    Proporcionan la capacidad de conectar rutas específicas del sistema de archivos del contenedor a la máquina host.
+
+    Si se monta un directorio en el contenedor, los cambios en ese directorio también se ven en la máquina host.
+
+* **Alpine - Linux:**
+
+    Alpine Linux es una distribución de Linux ligera y orientada a la seguridad basada en musl libc y busybox.
+
+* **Nginx:**
+
+    Es un servidor web que también se puede utilizar como proxy inverso, balanceador de carga, proxy de correo y caché HTTP. Nginx es un software gratuito y de código abierto.
+
+* **Container Orchestration:**
+
+    La orquestación de contenedores es la automatización de gran parte del esfuerzo operativo requerido para ejecutar cargas de trabajo y servicios en contenedores. Ejemplos de herramientas de orquestación son Kubernetes, Swarm, Nomad y ECS.
+
+* **Docker Layers - Capas:**
+
+    Las capas son el resultado de la forma en que se construyen las imagenes en Docker. Cada paso en un Dockerfile crea una nueva **capa** que es esencialmente una diferencia de los cambios en el sistema de archivos desde el último paso.
+
+* **Snyk:**
+
+    Es una plataforma de seguridad para desarrolladores para proteger el código, las dependencias, los contenedores y la infraestructura como código.
+
+* **Registry - Registro:**
+
+    Es una aplicación del lado servidor altamente escalable y sin estado que almacena y le permite distribuir imágenes de Docker.
+
+* **Docker Deamon:**
+
+    Es el servicio en segundo plano que se ejecuta en el host que administra la creación, ejecución y distribución de contenedores Docker.
+
+
+# ¿Qué es Docker?
+
+Docker nos permite manejar imagenes y montarlas en un contenedor aislado sin importar en que sistema operativo se este trabajando Docker se asegura de que va a funcionar exactamente igual en cada uno de estos sistemas operativos.
+
+**Beneficios:**
+
+* Cada contenedor está aislado de los demás.
+
+* Es posible ejecutar varias instancias de la misma versión o diferentes versiones sin configuraciones adicionales.
+
+* Con un comando, puedes descargar, levantar y correr todo lo que necesitas.
+
+* Cada contenedor contiene todo lo que necesita para ejecutarse.
+
+* Indiferente del sistema operativo HOST.
+
+# Hola mundo en Docker
+
+## docker pull
+Este comando sirve para obtener o jalar una imagen.
+
+```bash
+docker pull <image_name>
+docker pull <image_name>:<TAG>
+```
+
+## correr un contenedor
+
+```bash
+docker container run <image_name>
+```
+## Listar contenedores e imágenes
+
+```bash
+#Contenedores
+docker container ls
+docker container ls -a 
+```
+
+```bash
+#imagenes
+docker image ls
+```
+
+## borrar contenedores e imágenes
+
+```bash
+#Contenedores
+docker container rm <id_container>
+docker container prune
+```
+
+```bash
+#Imagenes
+docker image rm <id_mage>
+```
+# Variables de entorno
+
+Son valores configurables que se le pasan a un programa cuando se ejecuta.
+
+Sirven para: 
+
+* Configurar comportamiento.
+* Evitar "hardcodear" datos (como contraseñas).
+* Hacer contenedores más flexibles.
+
+En docker, las variables de entorno se pasan con la opción: 
+
+
+```bash
+-e <NAME>=VALUE
+```
+
+Podemos ver un ejemplo para el siguiente comando, en el cual se utiliza la variable de entorno POSTGRES_PASSWORD.
+
+```bash
+docker container run \
+  --name some-postgres \
+  -e POSTGRES_PASSWORD=mysecretpassword \
+  -d postgres
+```
+
+# Logs del contenedor
+
+Es información que la imagen de nuestro contenedor esta emitiendo.
+Para mostra los logs de un contenedo hay que ejecutar el siguiente comando.
+
+```bash
+docker container logs <container_id>
+docker container logs --follow <container_id>
+```
+
+**--follow.** Muestra los nuevos logs que se vayan generando.
+
+# Volumenes y Redes
+
+Para persistir la información de que se graba en los contenedores y la vamos a reflejar en otro lugar que llamamos volumenes.
+
+# Tipos de volumenes
+
+## Anonymus Volumes.
+
+Docker le asigna un nombre único a un volumen.
+
+## Named Volumes.
+
+Nosotros asignamos el nombre al volumen.
+
+```bash
+docker volume create todo-db #Crear un nuevo volumen 
+docker volume ls #Listar volumenes creados
+docker volume inspect todo-db #Inspeccionar el volumen específico
+docker volume prune #Remueve todos los volumenes no usados
+docker volume rm <valome_name> #Elimina un volumen especificado
+docker run -v todo-db:/etc/todos getting started #Usar un volumen al correr un contenedor
+```
+
+
+
+## Bind Volumes
+
+Sirven principalmente cuando ustedes quieren hacer una conexión o vincular, por ejemplo un file system de su equipo con un file system propiamente dentro del contenedor.
+
+# Redes de contenedores
+
+```bash
+docker network create world-app #Crear una red
+docker network connect <network_id> <container_id> #Ingresa un contenedor a la red
+```
+
+# Bind Volumes
+
+Nos van a permitir tener nuestra aplicación, esto será una aplicación local, nuestro código fuente, conectar esta misma aplicación directamente. Esto va a ser nuestra aplicación en el contenedor que va a estar corriendo un Linux.
+
+# Docker files
