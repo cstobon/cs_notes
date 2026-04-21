@@ -1,0 +1,143 @@
+---
+title: Comunicación entre procesos
+format: pdf
+---
+
+# Introducción
+La API de Java para comunicación entre procesos en internet provee comunicación tanto para datagramas y stream.
+
+Los dos patrones de comunicación que son los más usados comunmente:
+
+* **Comunicación Cliente-Servidor**.
+    La solicitud y respuesta de mensajes provee las bases para el método de invocación remota (RMI) o llamda a procedimientos remotoso(RPC).
+
+* **Grupo de comunicación**. El mismo mensaje es enviado a varios procesos.
+
+## Invocación de métodos remotos (RMI).
+Permite a un objeto invocar un método en un objeto de un proceso remoto.
+
+## Llamada a procedimientos remotos (RPC).
+Permite a un cliente llamar a un procedimiento en un servidor remoto.
+
+## La API para UDP provee la abstracción de dos maneras de stream entre pares de procesos.
+
+La API UDP provee una abstracción de paso de mensajes.
+
+* Paso de mensajes es la forma más simple de comunicación entre procesos.
+* API permite que un preceso emisor transmita un único mensaje a un proceso receptor.
+* Los paquetes independientes que contienen estos mensajes son llamados datagramas.
+* En las APIs de Java y Unix, el emisor especifica el destino usando sockets.
+* Los socket es una referencia indirecta a un puerto en particular usado por el proceso destino en la computadora destino.
+
+## La API para TCP provee la abstracción de un flujo bidireccional entre un par de procesos.
+
+* La información consiste en un flujo (stream) de elementos de datos sin delimitaciones de mensaje.
+* Solicitud-Respuesta fueron diseñados para apoyar la comunicación cliente-servidor tanto para RMI y RPC.
+* Los protocolos multicast fueron diseñados para sorportar comunicación en grupo.
+* Grupos multicast es una forma de comunicación entre procesos en el cual un proceso en un grupo de procesos transmite mensajes a todos los miembros del grupo.
+
+
+# API para el protocolo de internet
+
+* Transmisión de mensajes mediante envío y recepción.
+* Mensajes colocados y tomados queues.
+
+|                | blocking                                                                 | non-blocking                                                   |
+|----------------|--------------------------------------------------------------------------|----------------------------------------------------------------|
+| **send**       | returns control to user only after message has been sent, or until acknowledgment has been received | returns control to user as soon as message is buffered         |
+| **receive**    | returns only after message has been received                            | returns after signaling willingness to receive                 |
+| **problems**   | reduces concurrency                                                     | need buffering; more complicated                              |
+
+# Patrones de comunicación
+
+## Sincrono
+Envio bloqueante, recepción bloqueante.
+
+## Asincrono
+Los mensajes necesitan se almacenados en el buffer.
+Envio es no bloqueante y la recepción puede ser bloqueante o no bloqueante.
+
+# Destino de mensajes
+* **Puerto:** Es el destino del mensaje dentro de una computador (proceso).
+* **Socket:** Endpoint de la comunicación entre procesos.
+
+    * Asociado ya sea con UDP o TCP.
+    * El proceso puede usar cualquier número de socket.
+    * No puede ser compartido entre procesos.
+
+# Transparencia de locación
+
+## Relocalización de servicio.
+Traduce el nombre del servicio en lo localidad del servicio en tiempo de ejecución. Permite a los servicio ser movidos pero no migrados.
+
+# Migración de servicio.
+
+# UDP - Protocolo de datagrama
+
+* Protocolo de transmisión sin conección.
+* No aknowledments, no retries.
+* blocking: envio no bloqueante, recepción bloqueante.
+
+* Modelo de fallas:
+
+    * Fallas por omisión.
+    * Entregas fuera de orden.
+
+* DatagramPacket:
+
+    * Arreglo de bytes del mensaje.
+    * Longitud del mensaje.
+    * Dirección de internet.
+    * Número del puerto.
+
+* Datagram socket.
+
+# TCP - Protocolo de transmisión de constrol
+
+* flujo bidireccional de bytes.
+* TPC Usa
+
+    * operaciones de conección.
+    * operaciones de aceptar.
+
+* Cliente crea un stream socket y hace la conección.
+* Servidor crea un listen socket sobre un puerto.
+* Una vez que se acepta la conección entre el cliente y el servidor se establece usando un nuevo socket
+
+    * Permite la comunicación entre pares.
+
+* TCP oculta: 
+
+    * Tamaño del mensaje.
+    * Perdida de mensajes.
+    * Duplicación de mensajes y ordenamiento.
+    * Destino del mensaje.
+
+* Modelo de fallas:
+
+    * Asegura la integridad.
+    * No fiabilidad: No puede sobrevivir a todas las situaciones.
+    * Incapaz de distinguir entre fallas de red y de proceso.
+
+* Ejemplos de uso HTTP, FTP, Telnet, SMTP.
+
+# External representation y marshalling.
+La información almacenada en los programas en ejecución se representan como estructuras de datos, mientras que la información de los mensajes consiste en secuencias de bytes.
+
+Independientemente del medio de comunicación utilizado, las estructuras de datos deben convertirse en una secuencias de bytes antes de la transmisión y reconstruirse a su llegada.
+
+* **Problemas:**
+
+    * Conjuntos de caracteres - ASCII vs Unicode.
+    * Ordenamiento - BigEndian vs little-endian
+    
+* Dos metodos para el intercambio de datos:
+
+    * Convertir los valores en un formato externo acordado.
+    * Transmitir los datos en el formato del emisor.
+
+* **External data representation:** Acuerdo estandar para la representación de estructura de datos y valores primitivos.
+
+* **Marshalling:** Es el proceso de tomar un conjunto de datos y ensamblarlos en un formato adecuado para la transmisión.
+
+* **Unmarshalling:** Es el proceso de desamblar este conjuto de datos a la llegada para producir un conjunto de datos equivalentes para el destino. s s

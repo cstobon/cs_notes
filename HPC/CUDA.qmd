@@ -89,3 +89,27 @@ Para conocer el valor de **archived occupancy** necesitamos conocer el total de 
 $$
 \frac{\text{Total Cycles - Stall Cycles}}{\text{Total Cycles}}
 $$
+
+# Matrices
+Antes nos preocupamos por aplicaciones utilizando solo hilos y bloque de una sola dimensión. Ahora utilizaremos hilos de dos dimensiones por bloque y bloques de dos dimensiones por grid.
+
+Desarrollaremos el ejercicio de sumar dos matrices y almacenar el resultado en una tercera matriz.
+
+En todas las aplicaciones usamos Block size y el Grid size, el block size es llamado blockDimx pero tambíen podemos identificarlo como el número de hilos por bloque y el máximo valor que podemos usar es de 1024 hilos por bloque. Al igual el Grid size es el GridDimx el máximo valor es muy alto (No es 1024), podemos obtener el número total de hilos multiplicando el block size por el grid size.
+$$
+\text{Block size} = \text{block Dimx} = \text{number of threads per block} = 1024
+$$
+
+$$
+\text{Grid size} = \text{GridDimx} = 1024
+$$
+
+Ahora hagamos el ejercicio con usando dos dimensiones, y el único cambio es colocar el valor de  $$x$$ y el valor de $$y$$ eso es todo lo que necesitamos hacer.
+
+$$
+\text{Block size} = (32,32) = \text{blockDimx and blockDimy}
+$$
+
+$$
+\text{Grid size} = (1024, 1024) = \text{GridDimx and GridDimy}
+$$

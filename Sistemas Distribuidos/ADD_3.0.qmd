@@ -109,3 +109,30 @@ Por ejemplo, algunos de los principio de diseño bien documentados están orient
 * Para ayudar a lograr la capacidad de prueba, externalice el estado.
 
 A las realizaciónes reutilizables las llamamos **conceptos de diseño** y son lo bloques de construcción a partir de los cuales se crean estructuras que conforman la arquitectura.
+
+Existen diferentes tipos de concepto de diseño, discutiremos:
+
+* Arquitecturas de referencia.
+* Patrones de implementación.
+* Patrónes arquitectónicos.
+
+# Arquitecturas de referencia
+Las arquitecturas de referencia son planos que proporcionan una estructura lógica general para tipo concretos de aplicaciones. Una arquitectura de referencia es un modelo de referencia mapeado en uno o más patrones arquitectónicos.
+
+Cuando se adopta una arquitectura de referencia para una aplicación, también se adopta un conjunto de cuestiones que deben abordarse durante el diseño. Es posible que no exista un requisito explícito relacionado con las comunicaciones o la seguridad, pero el hecho de que estos elementos formen parte de la arquitectura de referencia obliga a tomar decisiones de diseño al respecto.
+
+![](./sources/ejemplo_arquitectura_referencia.png)
+
+# Patrones de diseño arquitectónico
+Los patrones de diseño son soluciones conceptuales a problema de diseño recurrentes que existen en un contexto definido. Se considera que un patrón es arquitectónico cuando su uso influye directa y sustancialmente en la satisfacción de algunos drivers.
+
+Aunque las arquitecturas de referencia pueden considerarse un tipo de patrón, preferimos considerarlas por separado debido al importante papel que desempeñan en la estructuración de una aplicación y porque están directamente relacionadas con las pilas tecnológicas.
+
+![](./sources/patron_arquitectura_capas.jpeg)
+
+# Patrones de implementación
+Otro tipo de patrón que hay que considerar por separado son los patrones de implementación. Estos patrones proporcionan modelos sobre como estructurar fisicamente el sistema para implementarlos. Algunos patrones de implementación, son útiles para establecer una estructura física inicial del sistema en términos de capas (nodos físicos). Los patrones de implementación más especializados, como el cluster con equilibrio de capas, se utiliza para satisfacer atributos de calidad como la disponibilidad, el rendimiento y la seguridad. 
+
+![](./sources/patron_implementacion.jpeg)
+
+En general, la estructura incial del sistema se obtiene asignando los elementos lógicos que se obtienen de las arquitecturas de referencia (y otros patrones) a los elementos físicos definidos por los patrones de implementación.

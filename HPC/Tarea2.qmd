@@ -1,0 +1,105 @@
+---
+title: "Implementación de Transposición de Matrices en CUDA"
+author: "Edgar Tobon Sosa"
+date: "2026-04-07"
+format:
+  pdf:
+    code-line-numbers: true
+    highlight-style: github
+---
+
+## Descripción del Problema
+
+El objetivo de este programa es realizar la transposición de una matriz cuadrada de tamaño $N \times N$ utilizando la arquitectura **CUDA**. Se implementa un enfoque *out-of-place*, utilizando una matriz de entrada y una de salida en el dispositivo para evitar condiciones de carrera y mejorar la eficiencia del acceso a memoria.
+
+## Código Fuente (`transpose.cu`)
+
+A continuación se presenta el código completo. Se utiliza una configuración de bloques de $32 \times 32$ hilos.
+
+```cpp
+/*
+ * @autor: Edgar Tobon Sosa
+ * @fecha: 7.04.2026
+ * @descripcion: Programa que realiza la traspuesta de una matriz en GPU
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#define N 10000
+
+/**
+ * @brief Kernel que realiza la transposición
+ * @param A Matriz de entrada en el dispositivo
+ * @param Out Matriz de salida en el dispositivo
+ */
+__global__ void kernel_transpose(float *A, float *Out) {
+    int i = threadIdx.y + blockIdx.y * blockDim.y; // Fila
+    int j = threadIdx.x + blockIdx.x * blockDim.x; // Columna
+
+    // Boundary Check para asegurar que no accedemos a memoria fuera de N
+    if (i < N && j < N) {
+        // Transposición: el elemento (j, i) de A pasa a (i, j) de Out
+        Out[i * N + j] = A[j * N + i];
+    }
+}
+
+void TransponseMatrixInDevice(float *A) {
+    float *Ad, *Out;
+    size_t size = (size_t)N * N * sizeof(float);
+
+    // Reservamos memoria en el Device
+    cudaMalloc((void **)&Ad, size);
+    cudaMalloc((void **)&Out, size);
+
+    // Copiamos los datos del Host al Device
+    cudaMemcpy(Ad, A, size, cudaMemcpyHostToDevice);
+
+    // Configuración de la malla
+    dim3 blockDim(32, 32);
+    dim3 gridDim((N + blockDim.x - 1) / blockDim.x, (N + blockDim.y - 1) / blockDim.y);
+
+    // Lanzamiento del kernel
+    kernel_transpose<<<gridDim, blockDim>>>(Ad, Out);
+
+    // Copiamos el resultado de vuelta al Host
+    cudaMemcpy(A, Out, size, cudaMemcpyDeviceToHost);
+
+    // Liberamos memoria del Device
+    cudaFree(Ad);
+    cudaFree(Out);
+}
+
+int main(void) {
+    // Reservamos la memoria de la Matriz A en el Host
+    size_t size = (size_t)N * N * sizeof(float);
+    float *A = (float *)(malloc(size));
+
+    if (A == NULL) {
+        fprintf(stderr, "Error al asignar memoria en Host\n");
+        return 1;
+    }
+
+    // Llenamos la Matriz A de valores
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            A[i * N + j] = (float)(i * N + j);
+        }
+    }
+
+    printf("Calculando transpuesta en GPU para N = %d...\n", N);
+    TransponseMatrixInDevice(A);
+    printf("¡Cómputo finalizado!\n");
+
+    // Verificación: Imprimimos solo una submatriz de 5x5 para no saturar la terminal
+    printf("\nResultado (Primeros 5x5 elementos):\n");
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 5; j++) {
+            printf("%10.1f ", A[i * N + j]);
+        }
+        printf("\n");
+    }
+
+    free(A);
+    return 0;
+}

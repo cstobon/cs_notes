@@ -1,0 +1,152 @@
+---
+title: "Análisis Comparativo de Desempeño: Multiplicación de Matrices en CPU vs. GPU"
+subtitle: "Computación de Alto Rendimiento (HPC)"
+author: "Edgar Tobón Sosa"
+date: last-modified
+lang: es
+format:
+  pdf:
+    toc: true
+    number-sections: true
+    colorlinks: true
+    papersize: letter
+    geometry:
+      - top=30mm
+      - left=25mm
+      - right=25mm
+      - bottom=30mm
+    header-includes: |
+      \usepackage{fancyhdr}
+      \pagestyle{fancy}
+      \fancyhead[R]{Multiplicación de Matrices}
+---
+\newpage
+
+
+## Resumen Ejecutivo
+
+Este documento presenta un análisis detallado sobre la eficiencia computacional en la multiplicación de matrices de gran escala. Se comparan las arquitecturas de procesamiento central (CPU) frente a las unidades de procesamiento gráfico (GPU), evaluando el tiempo de ejecución para matrices de distantas dimensiones.
+
+---
+
+## Introducción
+
+Tradicionalmente, el algoritmo iterativo estándar para la multiplicación de matrices cuadradas de orden $N$ presenta una complejidad temporal de $O(N^3)$. Para mitigar este costo computacional en volúmenes masivos de datos, la teoría algorítmica propone enfoques basados en el paradigma de divide y vencerás, siendo el algoritmo de Strassen uno de los más representativos. Este método reestructura algebraicamente las operaciones para reducir el número de multiplicaciones recursivas necesarias de 8 a 7, logrando una complejidad asintótica teórica inferior, de aproximadamente $O(N^{2.81})$.
+
+En el contexto de la computación de alto rendimiento (HPC), la implementación algorítmica debe alinearse estrechamente con la arquitectura de hardware subyacente. Mientras que en procesadores multi-núcleo (CPU) bajo el estándar OpenMP, la estructura recursiva de Strassen puede ser explotada eficientemente a través de la paralelización de tareas. Ya que contamos con la implementación de CPU se realizaran los cambios pertinentes en el código fuente para poder llevar la implementación en CUDA y contrastar el tiempo de ejecución de ambas implementaciones.
+
+Por consiguiente, este análisis evaluará y contrastará los enfoques de una implementación realizada en CPU con OpenMP y otra realizada con CUDA.
+
+### Objetivos
+
+* Medir el tiempo de ejecución para la implementación de Strassen en OpenMP.
+* Implementar el algoritmo de Strassen en CUDA .
+* Medir el tiempo de ejecución para la implementación de Strassen en CUDA.
+* Comparar y Analizar los resultados obtenidos para cada una de las implementaciones.
+
+---
+## Resultados Experimentales
+
+En esta sección se detallan los tiempos de ejecución y métricas de rendimiento obtenidas. Para los cálculos de rendimiento, se asume que la multiplicación de matrices de $N \times N$.
+
+### 1. Algoritmo Strassen con OpenMP 
+
+Esta tabla muestra el tiempo de ejecución de la implementación en OpenMP con 4 niveles de recursion 0, 1, 2 y 3.
+
+| Dimensión ($N$) | $r = 0$ (ms) | $r = 1$ (ms) | $r = 2$ (ms) | $r = 3$ (ms) |
+|:---:|:---:|:---:|:---:|:---:|
+| 512 | 30.904657 | 32.508198 | 45.295807 | 78.369439|
+| 1024 | 152.126240| 182.486385| 173.502550| 257.626129|
+| 2048 | 1313.332981| 996.890915| 1195.227073| 1234.491342|
+| 4096 | 38960.417613| 10758.215838| 7448.946334| 8669.292949|
+
+: Resultados de desempeño en CPU utilizando algoritmo de Strassen para distintos niveles de recursión.
+
+### 2. Implementación en GPU (CUDA)
+
+En esta tabla se muestran los resultados para la implementación en CUDA, pero sin el algoritmo de Strassen, la implementación es la que se muestra en el kernel del siguiente código:  
+
+```C
+__global__ void kernel_mul_mat(double *A, double *B, double *C, int n) {
+    int ix = threadIdx.x + blockDim.x * blockIdx.x;
+    int iy = threadIdx.y + blockDim.y * blockIdx.y;
+
+    if (ix < n && iy < n) {
+        double sum = 0.0;
+        for (int k = 0; k < n; k++) {
+            sum += A[iy * n + k] * B[k * n + ix];
+        }
+        C[iy * n + ix] = sum;
+    }
+}
+```
+
+En la siguiente tabla se desglosan las diferentes etapas de la ejecución en la tarjeta gráfica. Esto permite aislar el tiempo de procesamiento matemático puro del costo temporal asociado a la transferencia de datos a través del bus de interconexión.
+
+| Dimensión ($N$) | Tiempo H2D (ms) | Cálculo del Kernel (ms) | Tiempo D2H (ms) | Total (ms)|
+|:---:|:---:|:-----:|:---:| :---: |
+| 512 | 0.9157|3.4496 |1.6649 |  6.4071|
+| 1024 | 2.7693|26.6287 | 3.8824| 34.5839|
+| 2048 | 9.3579| 203.7496| 12.1864| 228.0411|
+| 4096 | 36.0918| 1159.0953| 46.0761| 1248.9506|
+
+: Análisis de latencia por transferencia de memoria vs. tiempo real de cómputo en GPU. *H2D: Host-to-Device (Envío de matrices A y B). D2H: Device-to-Host (Recuperación de matriz C).* {#tbl-transferencias}
+
+
+
+### 3. Implementación Algoritmo de Strassen en CUDA
+
+La implementación del algoritmo de Strassen en arquitecturas de hardware masivamente paralelas presenta un desafío arquitectónico sustancial. Aunque Strassen reduce la complejidad asintótica de la multiplicación de $O(N^3)$ a aproximadamente $O(N^{2.81})$, su naturaleza inherentemente recursiva de "divide y vencerás" entra en conflicto con el modelo de ejecución SIMT (Single Instruction, Multiple Threads) de las GPUs, donde la recursividad profunda genera una rápida saturación de la pila de llamadas y divergencia en el flujo de ejecución.
+
+Es por ello que se aprovecho el CPU para este manejo de la recursvidad.
+
+
+1.  **Host (CPU):** Actúa como el controlador lógico. Se encarga de gestionar el árbol de recursividad, determinar las dimensiones de las sub-matrices en cada nivel, e invocar la reserva de memoria dinámica en el dispositivo (`cudaMalloc`).
+2.  **Device (GPU):** Funciona estrictamente como el motor de cómputo intensivo. Las operaciones matriciales pesadas (sumas, restas y la partición de los cuadrantes) requeridas por las fases 1 y 3 de Strassen se resuelven mediante el lanzamiento de *kernels* especializados (`kernel_add`, `kernel_sub`, `kernel_split`). 
+
+Cuando la recursividad alcanza su caso base ($r = 0$), la CPU delega la multiplicación final a la GPU mediante el `kernel_mul`, procesando los bloques indivisibles con un paralelismo masivo.
+
+| Dimensión ($N$) | $r = 0$ (ms) | $r = 1$ (ms) | $r = 2$ (ms) | $r = 3$ (ms) |
+|:---:|:---:|:---:|:---:|:---:|
+| 512 | 3.476352 | 5.640224 | 9.178688 | 19.157280|
+| 1024 | 26.391520| 30.450848| 45.437889| 72.717827|
+| 2048 | 203.238144| 187.310181| 190.272476| 315.542084|
+| 4096 | 1271.152588| 974.582825| 953.536621| 1265.730103|
+
+: Resultados de desempeño de la implementación del Algoritmo de Strassen + CUDA.
+
+
+## Comparativa Global y Análisis de Rendimiento
+
+En la siguiente tabla se consolidan los mejores tiempos obtenidos (el nivel de recursividad *r* más eficiente) para cada una de las arquitecturas evaluadas, permitiendo contrastar el rendimiento máximo alcanzado.
+
+| Dimensión (*N*) | Mejor OpenMP (ms) | Mejor CUDA (ms) | CUDA + Strassen (ms) | 
+|:-----:|:-----:|:-----:|:-----:|:-----:|
+| 512 | 30.90 (*r* = 0) | **6.40** | 3.47* (*r* = 0) | 
+| 1024 | 152.12 (*r* = 0) | **34.58** | 26.39* (*r* = 0) |
+| 2048 | 996.89 (*r* = 1) | 228.04 | **187.31** (*r* = 1) | 
+| 4096 | 7448.94 (*r* = 2) | 1248.95 | **953.53** (*r* = 2) | 
+
+: Resumen del rendimiento máximo por plataforma.
+
+### Análisis Técnico de Resultados
+
+#### 1. Implementación OpenMP + Strassen (CPU)
+Los datos muestran el comportamiento clásico de la reducción de complejidad algorítmica:
+
+* **Umbral de eficiencia:** Para dimensiones de 512 y 1024, el costo de gestionar hilos y la memoria adicional de las matrices temporales de Strassen supera el beneficio matemático (*r* = 0 es más rápido).
+* **Punto de inflexión:** A partir de matrices de 2048x2048, el algoritmo de Strassen se vuelve dominante. Es notable el caso de dimensión 4096, donde pasar de un enfoque clásico (*r* = 0, ~38.9 s) a un nivel de recursividad *r* = 2 (~7.4 s) reduce el tiempo en un **80%**. Esto valida empíricamente que la reducción de $O(N^3)$ a $O(N^{2.81})$ tiene un impacto masivo en procesadores de múltiples núcleos.
+
+#### CUDA + Strassen
+Esta es la implementación de mayor complejidad arquitectónica y sus resultados muestran un balance crítico:
+
+* **Costo de Orquestación:** El nivel de recursividad *r* = 3 es consistentemente más lento que *r* = 2. Esto ocurre porque dividir la matriz en bloques excesivamente pequeños obliga a la CPU a generar miles de llamadas a las funciones de reserva y liberación de memoria, lanzando *kernels* que no logran saturar la totalidad de los núcleos de la GPU.
+* **Optimización Máxima:** La mejor marca de todo el estudio se logra con **CUDA + Strassen (*N* = 4096, *r* = 2)** registrando **953.53 ms**. Romper la barrera del segundo para una matriz de ese tamaño supera incluso al *kernel* optimizado de CUDA estándar. Aquí, la reducción de operaciones matemáticas logró compensar el *overhead* de la gestión de memoria distribuida.
+
+
+
+### Conclusiones
+
+1.  **Superioridad de la GPU:** La arquitectura masivamente paralela de la GPU (CUDA) es aproximadamente **7.8 veces más rápida** que la mejor configuración de CPU para matrices de gran escala.
+2.  **Efectividad y Límites de Strassen:** El algoritmo de Strassen es una herramienta de optimización contundente, pero su implementación en GPU exige un control estricto de la recursividad. Un exceso de divisiones degrada el rendimiento por el costo de orquestación entre el Host y el Device.
+3.  **Configuración Óptima:** Para aplicaciones de alto rendimiento, el modelo híbrido de Strassen con *r* = 2 en CUDA ofrece el desempeño pico absoluto, logrando la mayor eficiencia computacional al sinergizar la reducción algorítmica con la aceleración pura del hardware.

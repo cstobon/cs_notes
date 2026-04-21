@@ -1,0 +1,101 @@
+---
+title: "Aplicaciones de Computación Ubicua"
+subtitle: "Análisis de tres ejemplos en diversos entornos"
+author: "Edgar Tobón Sosa"
+date: last-modified
+date-format: "DD [de] MMMM, YYYY"
+lang: es
+format:
+  pdf:
+    toc: true
+    number-sections: true
+    colorlinks: true
+    papersize: letter
+  html:
+    toc: true
+    theme: cosmo
+---
+
+\newpage
+
+## Resumen
+En el siguiente documento se hablara sobre que es el cómputo ubicuo, retos y ventajas del cómputo ubicuo. Además se trataran tres ejemplos de sistemas de cómputo ubico en distintos entornos, mostrando principalmente su visión, retos, aplicaciones de cada uno de los ejemplos.
+
+
+
+## Introducción
+Podemos detectar 4 pasos en la evolución de la computación, los cuales son Mainframes(60's-70's), PC y sistemas distribuidos(80's-90's), cómputo móvil(90's-00's) y actualmente computo ubicuo.
+
+Abowd define la computación ubicua como "Computación distribuida fuera del escritorio, donde los elementos comunes son aumentados con capacidades de procesamiento y realizan tareas por separado o de forma colaborativa." 
+
+Algunas ventajas que nos trae la computación ubicua son : 
+
+* **En cualquier lugar**
+* **Sin esfuerzo consciente**
+* **Con una sensación de superrealismo**
+* **Desde el punto de vista del usuario**
+
+Al igual el cómputo ubicuo trae consigo nuevos retos, tales como: 
+
+* **Dispositivos con recursos limitados de hardware**
+* **Entornos de ejecución volátiles**
+* **Entornos de ejecución heterogéneos**
+* **Entornos de uso fluctuantes**
+* **Computo invisible**
+* **Seguridad y privacidad**
+
+El objetivo de este reporte no es el estudio a detalle del cómputo ubicuo, sino presentar tres ejemplos en distintos entorno y notar sus ventajas asi como la manera en que abordan los distintos retados que se presentan en el cómputo ubicuo.
+
+## Revisión de la Literatura
+
+El objetivo de examinar estos proyectos es comprender cómo la interacción entre sensores, procesamiento de datos y conectividad resuelve problemas específicos, los retos con los que se enfrentan y mostrar aplicaciones reales de estos sistemas.
+
+### Ejemplo 1: iCare: sistema ubicuo de monitoreo y cuidado personal
+En el ámbito de salud, el siste ICare propone una visión de mejorar el cuidado de la salud a través del monitoreo remoto intermitentemente de signos vitales del usuario, la recolección de datos de contexto y datos clínicos. La tecnología que da soporte al sistema de ICare esta divida en tres capas: 
+
+* Sensores. Conformado por un acelerómetro y un dispositivo portatil de monitore de frecuencia cardiaca.
+* Dispositivo móvil inteligente. Encargado de la recepción y recolección de datos provenientes de los sensores.
+* Servidor Web. Encargado de la administración del almacenamiento y presentación de los datos recolectados por el dispositivo móvil.
+
+De manera general, los sensores interactúan con el dispositivo móvil inteligente enviando información del signo vital monitoreado y actividad física del usuario. El dispositivo móvil inteligente realiza la recepción, análisis y almacenamiento temporal de la información recibida y es el encargado de lanzar una alarma si el resultado del módulo de toma de decisiones así lo determina. Este también interactúa
+con el servidor enviándole información actualizada de los datos recibidos de los sensores y valores arrojados del análisis de los mismos.
+
+Se basa en una arquitectura distribuida y jerárquica de tres capas. El enfoque principal es la computación en el borde (Edge Computing), donde el dispositivo móvil actúa como el núcleo de procesamiento local para la toma de decisiones inmediata, reduciendo la dependencia total del servidor.
+
+El sistema se aplicó en una población compueta de adultos mayores de ambos sexos entre 45 y 80 años, dando preferencia a usuarios que padecen hipertensión y Diabtes. La adquisión de los datos clínicos del usuario se realizó bajo un protocolo de consentimiento informado.
+
+Aunque no se explicitan todos en el origen, el diseño aborda retos críticos de la computación ubicua como la autonomía energética (mediante monitoreo intermitente), la gestión de la privacidad de datos sensibles (bajo protocolos de consentimiento) y la usabilidad para una población con posible brecha digital (adultos de hasta 80 años).
+
+
+### Ejemplo 2: El cómputo ubicuo desde la perspectiva de gestión de información: Los sistemas de flujos de datos
+
+Los sistemas de Bases de Datos (SBD) han tenido que evolucionar para satisfacer las nuevas necesidades de información, de esta manera los SBD han dado paso a los Sistemas de Flujo de Datos, que son aquellos que pueden trabajar con datos transmitidos a gran velocidad, provienientes de multiples fuentes y cuya longitud es potencialmente infinita. Debido a esto, es imposible el almacenamiento en algún medio físico para despues procesarlos.
+
+Los sistemas de flujos de datos heredan algunas propiedades de los SBD, como el manejo de la información utilizando el esquema de tuplas y consultas de datos, con la diferencia de que en este enfoque se hace de manera continua. 
+
+El SFD se compone de un sistema gestor de flujo de datos (SGFD), el cual actualiza la información tan pronto como esta llega y ofrece resultado en el procesamiento de datos en tiempos muy cortos, el SGFD posee 5 elementos:
+
+* Manejador de flujos de entrada.
+* BD persistente y temporal.
+* Motor de consultas continuas.
+* Monitor de calidad en el servicio y optimizador de ejecución.
+* caché y buffer.
+
+Una aplicación actual es la de Adwords para la publicidad online, la cual permite adquirir anuncios para destacar productos y servicios. Su funcionamiento consiste en almacenar una cookie en el navegador del cliente cada vez que utiliza el motor de búsqueda y da clic en un anuncio de su interés. Cada clic y texto buscado es considerado un flujo de datos, estos son analizados y comparados con las palabras clave de empresas.
+
+
+### Ejemplo 3: Estado del arte en sistemas de visión artificial para personas invidente
+En el ámbito de la asistencia tecnológica, el artículo analiza diversos sistemas de visión artificial para personas invidentes, cuya visión principal es sustituir o complementar la percepción visual humana para otorgar una mayor autonomía en la vida cotidiana. Estos sistemas se basan en un enfoque de sustitución sensorial, donde la información del entorno capturada visualmente se traduce a estímulos auditivos o vibro-táctiles que el usuario puede interpretar cognitivamente. Sin embargo, el desarrollo de esta tecnología enfrenta retos significativos, tales como la alta demanda computacional que requiere el procesamiento de imágenes en tiempo real, la necesidad de diseños ergonómicos y de bajo costo que no obstruyan el oído del usuario, y la dificultad técnica de detectar obstáculos a la altura de la cabeza o en situaciones de cruce de calles.
+
+En cuanto a las tecnologías empleadas, el estudio destaca el uso de hardware diverso que incluye cámaras digitales, sensores de profundidad, infrarrojos y procesadores de bajo consumo integrados en dispositivos portátiles. A nivel de software, se utilizan algoritmos avanzados de visión computacional y modelos geométricos para la detección de objetos y reconocimiento de patrones. Finalmente, la aplicación práctica de estos sistemas se centra en cinco áreas críticas para la integración social: la movilidad segura para evitar obstáculos, la orientación y localización de rutas, el acceso a información impresa mediante lectura automática, el reconocimiento de objetos para actividades comerciales y la mejora en la interacción social del usuario.
+
+## Conclusiones
+
+Los tres ejemplos vistos en la sección anterior nos muestran las ventajas, retos, tecnológia implementadas para cada uno de los sistemas en el ámbito de la computación, aunque los tres poseen visiones y propósitos diferentes podemos ver que los retos con los que se enfrentan pertencen a uno de los seis tipos que mencionamos en la introducción.
+
+De los ejemplos vistos anteriormente notamos que algunos apenas se encuentra en fases de diseño y prototipos y otros ya estan siendo implementados, el hecho es que los sistemas computacionales de la actulidad ya estan siendo enfocados en términos de computación ubicua.
+
+
+## Referencias
+Terven, J. R., Salas, J., & Raducanu, B. (2013). Estado del arte en sistemas de visión artificial para personas invidentes. Komputer Sapiens, 5(1), 16-21
+

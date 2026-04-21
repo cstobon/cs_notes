@@ -1,0 +1,36 @@
+---
+title: Computación ubiqua
+format: pdf
+---
+
+# Definición
+Computación distribuida fuera del escritorio, donde los elementos comunes son aumentados con capacidades de procesamiento y realizan tareas tanto por separado como de forma colaborativa.
+
+Aspectos para concretar la computación ubicua:
+
+* Factor de forma: Elementos miniaturizados.
+* Interfaces naturales.
+* Capacidad para obtener información del entorno.
+* Recoger experiencias a lo largo del tiempo.
+
+# Ventajas del computo ubicuo.
+
+* **En cualquier lugar**. Elimina la dependencia de la ubicación. 
+* **Sin esfuerzo consciente.** El computo ubicuo realiza una variedad de tareas sin que el usuario se de cuenta.
+* **Con una sensación de superrealismo.**La computación no bloque el acceso a ninguna información y el trabajo se puede realizar de forma remota como si lo hiciera en sitio.
+
+* **Desde el punto de vista del usuario:** La tecnología del cómputo ubicuo implementa funciones desde el punto de vista del usuario, más que desde el punto de vista de los proveedores de información y operación.
+
+# Retos del computo ubicuo
+
+* Dispositivos con recursos limitados de hardware.
+
+* Entornos de ejecución volatiles.
+
+* Entornos de ejecución heterogéneos.
+
+* Entornos de usuo fluctuantes.
+
+* Computo invisible
+
+* Seguridad y privacidad

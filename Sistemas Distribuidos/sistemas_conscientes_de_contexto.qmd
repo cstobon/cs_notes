@@ -1,0 +1,30 @@
+---
+title: Sistemas conscientes de contexto
+format: pdf
+---
+
+# Definición
+El contexto es cualquier información que pueda ser utilizada para caracterizar la información de una entidad. Una entedidad es una persona, lugar u objeto que es relevante para la interacción etre el usuario y la aplicación, incluyendo al usuario y a la aplicación promiamente dichos.
+
+# Apliciones conscientes de contexto
+Sistema que utiliza el contexto para proporcionar información relevante y/o servicios al usuario, donde la relevancia depende de la tarea del propio usuario.
+
+# Tipos de aplicaciones
+
+* **Selección por cercanía**: En estas apliaciones los objetos que están alrededor del usuario son seleccionados o de alguna forma se enfatizan o se hacen más fáciles de elegir que el resto.
+
+* **Reconfiguracion contextual automática:** En estas aplicaciones los componentes que forman el espacio se reconfiguran dependiendo del contexto.
+
+* **Comandos contextuales:** Son aplicaciones que ejecutan comandos de forma manual por el usuario con base en la información de contexto.
+
+* **Acciones originadas por el contexto:** En este tipo de aplicaciones, se ejecutan comandos automaticamente por el sistema con base en el contexto; lo cuales implican reglas o algún tipo de base de conocimiento ligado a las preferencial del usuario.
+
+# Clasificación de las aplicaciones conscientes de contexto
+
+* **Prestación de servicios o información al usuario:** El usuario visualiza la información del contexto, en las formas adecuadas, incluyendo contexto de bajo y alto nivel.
+
+* **Ejecución automática de un servicio:** Los sistemas de esta categoría utilizan la información de contexto para ejecutar servicios al satisfacerse las condiciones definidas generalmente por el usaurio.
+
+* **Adapatacion contextual:** El siste se adapta a sí mismo con base en la información de contexto.
+
+* **Uso de información de contexto para etiquetar datos:** Estos sistemas usan información de contexto para poder añadirla a contenido y datos que el usuario y sistema genera o recaba. 
