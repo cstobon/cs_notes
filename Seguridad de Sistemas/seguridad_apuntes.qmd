@@ -1,0 +1,29 @@
+---
+title: "Seguridad en Sitemas de información"
+subtitle: "Apuntes "
+author: "Edgar Tobón Sosa"
+date: last-modified
+lang: es
+format:
+  pdf:
+    toc: true
+    number-sections: true
+    colorlinks: true
+    papersize: letter
+    geometry:
+      - top=30mm
+      - left=25mm
+      - right=25mm
+      - bottom=30mm
+    header-includes: |
+      \usepackage{fancyhdr}
+      \pagestyle{fancy}
+      \fancyhead[R]{Multiplicación de Matrices}
+---
+\newpage
+
+## Networking and Internetworking
+
+### Introduction
+
+  We shall refer to the collection of hardware and software components that provide the communication facilities for a distributed system as a **communication subsytem**. The computers and other devices that use the network for communication proporses are referred to as **host.** The term **node** is used to refer to any computer or switching device attached to a network.

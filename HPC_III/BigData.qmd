@@ -1,0 +1,166 @@
+---
+title: "Big Data"
+subtitle: "Apuntes "
+author: "Edgar Tobón Sosa"
+date: last-modified
+lang: es
+format:
+  pdf:
+    toc: true
+    number-sections: true
+    colorlinks: true
+    papersize: letter
+    geometry:
+      - top=30mm
+      - left=25mm
+      - right=25mm
+      - bottom=30mm
+    header-includes: |
+      \usepackage{fancyhdr}
+      \pagestyle{fancy}
+      \fancyhead[R]{Multiplicación de Matrices}
+---
+\newpage
+
+## Frameworks and tools
+
+Specialized tools and frameworks are equired for big data analysis when: 
+
+1. The volume of data involved is so large that is difficult to store, process anda nalyze dta on a single machine.
+
+2. The volocity of data is very high and the data needs to be analyzed in real-time.
+
+3. There is a variety of data involved, which can be structured, unstructured or semi.structured, and is collected from multiple dta sources.
+
+4. Various types of analytics need to be performed to extract value from the data sus as descriptive, diagnostic, predictive and prescriptive analytics.
+
+Big Data tools and frameworks have distributed and parallel processing architectures and can leverage the storage and computational resources of a large cluster of machines.
+
+Analytics involver several steps starting from data cleansing, data munging (or wrangling), data processing and visualization.
+
+Specialized tools and framework are required to ingest the data from different sources into the dig data analytics backend.
+
+Based on the analysis requirements (batch or real-time), and type of analysis to be performed (descriptive, diagnostic, predictive, or prescriptive) specialized frameworks are used.
+
+Big data analytics is enabled by several techonologies such as:
+
+* cloud computing.
+* distributed and parallel processing frameworks.
+* non-realational dtabases.
+* in-memory computing.
+* etc.
+
+## Characteristics of Big Data
+
+### Volume 
+
+Big data is form of data whose volume is so large that it would not fit on a single machine therefore specialized tools and frameworks are required to store process and analyze such data.
+
+### Velocity
+
+* Velocity of data refers to how fast the data is generated and the primary **reason for the exponential growth of data.**
+
+* Results in the volume of data accumulated to become very large, in short span of time.
+
+* Some application can have strict deadlines for data analysis and the data needs to be analyzed in real-time.
+
+* Specialized tools are required to ingest such high velocity data into the big data infrastructure and analyze the data.
+
+### Variety
+Flexible enought to handle such Variety on the froms of the data:
+
+* structured
+* unstructured
+* semi-structured
+* text data
+* image
+* audio
+* video
+* sensor data
+
+### Veracity
+
+Veracity refers to how accurate is the data.
+
+* To extract value from the data, the data needs to be cleaned to remove noise.
+
+* Cleansing of dta is important so that incorrect and faulty data can be filtered out.
+
+### Value
+
+Value of dta refers to the usefulness of data for the intended purpose. The end goal of any big data analytics system os to extract value from the data.
+
+### Data collection
+
+Before the data can be analyzed, the data must be collected and ingested into a big data stack.
+
+The choice of tools and frameworkds for data collection dependes on the source of data and the ytpe of data being ingested.
+
+### Data preparation
+
+Data can often be dirty and can have various issues that must be resolved before the data can be preocessed, such as:
+
+* corrupt records.
+* missing values.
+* duplicates.
+* incosistent abrreviations.
+* incosistent units.
+* typos.
+* incorrect spellings.
+* incorrect formatting.
+
+involves various tasks such as:
+
+* data cleaning.
+* data wrangling or munging.
+* de-duplication.
+* normalization.
+* stampling.
+* filtering.
+
+**Data cleaning** detects and resolves issues such as:
+
+* corrupt records.
+* records with missing values.
+* records with bad formatting.
+* for instance.
+
+**Data wrangling** or munging deals with transforming the data from one raw format to another (Some file may be using comma as the field separator, other may be using tab as the field separator).
+
+**Normalization** is required when data from different sources uses different units or scales or have differente abbreviations for the same thing.
+
+**Filtering** and sampling may be useful when we want to process only the data that meets certain rules.
+
+### Analysis Types
+
+Analysis types and the algorithms.
+
+### Analysis Modes
+
+To determine the analysis mode, which can be either batch, real-time, or interactive.
+
+The choice of the mode depends on the requirements of the application.
+
+If your application demands results to ve updated afeter short intervales of time (say every few seconds), then real-time analysis mode is chosen.
+
+If your application only requires the results to be generated and updated on larger timescales (say daily or monthly), then batch mode can be used.
+
+If your application demands flexibility to query data on demand, the the interactive mode is useful.
+
+Once you make a choice of the analysis type and the analysis mode, you can **determine the processing pattern** that can be used.
+
+**The choice of the analysis type, analysis mode, and the data processing pattern can help you in shortlisting the right tools and framworks for data analysis.**
+
+### Visualizations
+
+The choice of the visualization tools, serving databases and web frameworks is driven by the requirements of the application.
+
+**Static** visualization are used when you have the analysis results sotred in a serving database and you simply want to display the results.
+
+If your application demands the results to **update regularly**, then you would require **dynamic** visualizations.
+
+If you want your application to accept inputs from the user and display the results, then you would require **interactive** visualizations.
+
+### Raw Data Sources
+
+Before the data is processed and analyzed, it must be captured from the **raw data sources** into the big data systems and frameworks.
