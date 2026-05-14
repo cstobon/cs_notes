@@ -1,0 +1,23 @@
+---
+title: "IA Generativa"
+subtitle: "Notes"
+author: "Edgar Tobón Sosa"
+date: last-modified
+lang: es
+format:
+  pdf:
+    toc: true
+    number-sections: true
+    colorlinks: true
+    papersize: letter
+    geometry:
+      - top=30mm
+      - left=25mm
+      - right=25mm
+      - bottom=30mm
+    header-includes: |
+      \usepackage{fancyhdr}
+      \pagestyle{fancy}
+      \fancyhead[R]{Multiplicación de Matrices}
+---
+\newpage
