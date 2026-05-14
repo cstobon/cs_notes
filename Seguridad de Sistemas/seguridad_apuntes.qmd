@@ -18,7 +18,7 @@ format:
     header-includes: |
       \usepackage{fancyhdr}
       \pagestyle{fancy}
-      \fancyhead[R]{Multiplicación de Matrices}
+      \fancyhead[R]{Sistemas de seguridad}
 ---
 \newpage
 
@@ -27,3 +27,37 @@ format:
 ### Introduction
 
   We shall refer to the collection of hardware and software components that provide the communication facilities for a distributed system as a **communication subsytem**. The computers and other devices that use the network for communication proporses are referred to as **host.** The term **node** is used to refer to any computer or switching device attached to a network.
+
+  The internet is a single communication subsystem providing communication between all of the hosts that are connected to it. The internet is constructed from many subnets. A subnet is a unit of routing; its a collection of nodes that all can be reached on the same physical network.
+
+### Network issues for distributed systems
+
+  The network performance parameters that are of primary interest for our purposes are those affecting the speed with which individual messages can be transferred between two inteconnected computers. These are the latency and the point-to-point data transfer rate:
+
+  * **Latency** is the delay that occurs after a send operation is executed and before data starts to arrive at the destination computer.
+
+  * **Data transfer rate** is the speed at which data can be transferred between two computers in the network once transmission has begun, usually quoted in bits per second.
+
+  The performance of networks deteriorates in conditions of overload, whe are too many messages in the network at the same time.
+
+#### Scalability
+
+For simple client-server applications such as the Web, we would expect future traffic to grow at least in proportion to the number of active users.
+
+#### Reliability
+
+Many applications are able to recover from communication failures and hence do not require guaranteed error-free communication. The end-to-end argument further supports the view that the communication subsytem need not provide totally error-free communication; the detection of cummunication errors and their correction is often best performed by application-level software.
+
+#### Security
+
+The first level of defence adopted by most organizations is to protect its netwok and the computers attached to them with a firewall. A firewall crates a protection boundary between the organization intranet and the rest of the internet. The propourse of the firewall is to protect the resources in all of the computers inside the organization form access by external users of processes and to control the use of resources outside the firewall by users inside the organizaiton.
+
+A firewall runs on a gateway - a computer that stands at the network entry point to an organization's intranet.
+
+#### Quality of service
+
+We defined quality of services as including the ability to meet deadlines when transmitting and processing streams of real-time multimedia data. Applications that transmit multimedia data require guaranteed bandwidth and bounded latencies for the communication channels that the use.
+
+## Network principles
+
+The basis for all computers networks is the packet-switching technique first developed in 1960s. This enable data packets addressed to different destinations to share a single communication link. Packets are queued in a buffer and transmitted when the link is available.
